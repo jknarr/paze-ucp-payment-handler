@@ -50,8 +50,12 @@ handler-agnostic:
 
 - discover the merchant profile and intersect supported handlers;
 - load each negotiated browser module through the generic interface;
-- render the agent response before invoking `select()`, with a buyer-activated
-  fallback if the browser blocks the deferred consumer-present UI;
+- detect payment intent locally and invoke `select()` synchronously from the
+  buyer's Send/Enter activation while informing the agent in parallel;
+- for payment phrasing recognized only after the agent responds, attempt a
+  deferred launch on desktop but show a buyer-activated selection control
+  immediately on coarse-pointer mobile/tablet devices;
+- retain a buyer-activated fallback for handler errors;
 - render generic masked display and address data;
 - after explicit confirmation, invoke `complete()` and submit the resulting
   instrument through standard UCP completion outside model state.
@@ -81,9 +85,10 @@ The handler repository owns:
 3. The chat preloads the handler-owned ES module and initializes it with the
    merchant's public handler configuration.
 4. The agent searches the merchant catalog and creates a server-priced checkout.
-5. When the buyer asks to pay, the client renders the agent response and then
-   invokes the negotiated module's `select()` method. If the browser blocks the
-   deferred launch, the conversation presents an explicit fallback control.
+5. When the buyer asks to pay, the client detects the intent locally and invokes
+   the negotiated module's `select()` method synchronously before awaiting the
+   agent response. This preserves popup activation consistently on mobile and
+   desktop; the same message is sent to the agent in parallel.
 6. The Paze module invokes `DIGITAL_WALLET_SDK.checkout()` and returns only an
    opaque selection plus masked display data.
 7. The buyer reviews items, subtotal, shipping, tax, total, card, and shipping
