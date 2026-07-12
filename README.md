@@ -58,6 +58,15 @@ merchant-verification API. Each merchant verifies and decrypts the credential
 internally while processing the standard UCP checkout completion operation.
 Merchant private keys are never sent to the handler origin.
 
+The demo handler is deployed to Cloudflare Workers at:
+
+```text
+https://paze.jknarr.workers.dev/paze-handler.js
+```
+
+Deploy or update it with `npm run deploy`. The Cloudflare Worker adds the CORS
+and cross-origin resource headers required for browser module loading.
+
 Runnable demo components:
 
 - [Jimporium merchant](https://github.com/jknarr/demo-merchant)

@@ -31,6 +31,7 @@
     "build": "npm run clean && tsc -p tsconfig.json && vite build",
     "dev": "vite --host 127.0.0.1 --port 5175",
     "preview": "vite preview --host 127.0.0.1 --port 5175",
+    "deploy": "npm run build && wrangler deploy",
     "prepack": "npm run build",
     "test": "tsx tests/browser-contract.test.ts && tsx tests/schema-conformance.test.ts",
     "validate": "npm run build && npm test"
@@ -39,7 +40,8 @@
     "@types/node": "^24.10.1",
     "tsx": "^4.23.0",
     "typescript": "~5.8.3",
-    "vite": "^6.4.1"
+    "vite": "^6.4.1",
+    "wrangler": "^4.110.0"
   },
   "license": "MIT"
 }
