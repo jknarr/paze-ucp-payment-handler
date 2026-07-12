@@ -42,6 +42,21 @@ await selectPayment({
 assert.equal("emailAddress" in checkoutCalls[0], false);
 assert.equal("mobileNumber" in checkoutCalls[0], false);
 
+const missingResultClient = {
+  checkout: async () => undefined,
+} as unknown as PazeSdkClient;
+await assert.rejects(
+  selectPayment({
+    client: missingResultClient,
+    sessionId: "checkout-without-sdk-result",
+    action: "START_FLOW",
+    totals: [{ type: "subtotal", amount: 1000 }],
+  }),
+  (error: Error & { code?: string }) =>
+    error.code === "PAZE_CHECKOUT_RESULT_MISSING" &&
+    error.message === "Paze did not return a checkout result",
+);
+
 const instrument = createPazeInstrument({
   sessionId: "checkout-test",
   handlerId: "merchant-handler",

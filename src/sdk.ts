@@ -33,7 +33,9 @@ export type PazeSdk = {
     billingPreference: "ALL" | "ZIP_COUNTRY" | "NONE";
     emailAddress?: string;
     mobileNumber?: string;
-  }): Promise<{ result: "COMPLETE" | "INCOMPLETE"; checkoutResponse?: string }>;
+  }): Promise<
+    { result: "COMPLETE" | "INCOMPLETE"; checkoutResponse?: string } | undefined
+  >;
   complete(options: {
     transactionType: "PURCHASE" | "CARD_ON_FILE" | "BOTH";
     sessionId: string;
@@ -208,6 +210,13 @@ export async function selectPayment(input: {
     billingPreference: "ALL",
     ...(input.lookup ?? {}),
   });
+  if (!result) {
+    const error = new Error(
+      "Paze did not return a checkout result",
+    ) as Error & { code?: string };
+    error.code = "PAZE_CHECKOUT_RESULT_MISSING";
+    throw error;
+  }
   if (result.result !== "COMPLETE") {
     const error = new Error(
       `Paze returned ${result.result ?? "no result"}; no payment selection was created`,
