@@ -1,16 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Draft Paze UCP handler configuration",
-  "description": "Experimental merchant-published configuration for a Paze JavaScript SDK payment handler.",
+  "$id": "https://raw.githubusercontent.com/jknarr/paze-ucp-payment-handler/v2026-07-11/schemas/2026-07-11/types/business_config.json",
+  "title": "Paze Business Config",
+  "description": "Public Paze configuration advertised by a UCP business.",
   "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "environment",
-    "client_id",
-    "action_url",
-    "supported_currencies",
-    "supported_intents"
-  ],
+  "required": ["environment", "client_id"],
   "properties": {
     "environment": {
       "type": "string",
@@ -19,17 +13,20 @@
     "client_id": {
       "type": "string",
       "minLength": 1,
-      "description": "Public Paze JavaScript SDK merchant client identifier."
+      "description": "Public Paze business identity assigned during onboarding."
     },
     "profile_id": {
       "type": "string",
       "minLength": 1
     },
-    "action_url": {
+    "client_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "module_url": {
       "type": "string",
       "format": "uri",
-      "pattern": "^https://",
-      "description": "Merchant-hosted consumer action page that loads the Paze JavaScript SDK."
+      "description": "Business-selected browser module for its own consumer-facing surfaces. Platforms may apply their own module allowlist."
     },
     "supported_currencies": {
       "type": "array",
@@ -45,7 +42,6 @@
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "type": "string",
         "enum": ["REVIEW_AND_PAY", "EXPRESS_CHECKOUT"]
       }
     },
@@ -53,9 +49,9 @@
       "type": "array",
       "uniqueItems": true,
       "items": {
-        "type": "string",
         "enum": ["VISA", "MASTERCARD", "DISCOVER"]
       }
     }
-  }
+  },
+  "additionalProperties": false
 }

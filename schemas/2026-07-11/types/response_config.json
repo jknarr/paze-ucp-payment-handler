@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/jknarr/paze-ucp-payment-handler/v2026-07-11/schemas/2026-07-11/types/response_config.json",
+  "title": "Paze Response Config",
+  "description": "Authoritative runtime configuration returned with a checkout.",
+  "type": "object",
+  "required": ["environment", "client_id"],
+  "properties": {
+    "environment": {
+      "type": "string",
+      "enum": ["sandbox", "production"]
+    },
+    "client_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "client_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "module_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "supported_currencies": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}$"
+      }
+    },
+    "supported_intents": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["REVIEW_AND_PAY", "EXPRESS_CHECKOUT"]
+      }
+    }
+  },
+  "additionalProperties": false
+}

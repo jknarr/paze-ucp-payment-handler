@@ -9,3 +9,4 @@ coverage/
 *.key
 *private*.json
 password.txt
+*.tsbuildinfo

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/jknarr/paze-ucp-payment-handler/v2026-07-11/schemas/2026-07-11/types/paze_instrument.json",
+  "title": "Paze Payment Instrument",
+  "description": "UCP instrument carrying a Paze merchant-encrypted credential.",
+  "$defs": {
+    "available_paze_instrument": {
+      "allOf": [
+        {
+          "$ref": "https://ucp.dev/2026-04-08/schemas/shopping/types/available_payment_instrument.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "paze"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "https://ucp.dev/2026-04-08/schemas/shopping/types/payment_instrument.json"
+    }
+  ],
+  "type": "object",
+  "required": ["type", "session_id", "selected", "credential"],
+  "properties": {
+    "type": {
+      "const": "paze"
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "description": "UCP checkout ID passed to the Paze SDK as sessionId."
+    },
+    "selected": {
+      "const": true
+    },
+    "credential": {
+      "$ref": "paze_credential.json"
+    },
+    "payload_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "display": {
+      "type": "object",
+      "properties": {
+        "card_network": {
+          "enum": ["VISA", "MASTERCARD", "DISCOVER"]
+        },
+        "pan_last_four": {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        "buyer_name": {
+          "type": "string"
+        },
+        "shipping_address": {
+          "$ref": "https://ucp.dev/2026-04-08/schemas/shopping/types/postal_address.json"
+        }
+      }
+    }
+  }
+}

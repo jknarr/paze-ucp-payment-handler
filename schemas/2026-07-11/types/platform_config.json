@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/jknarr/paze-ucp-payment-handler/v2026-07-11/schemas/2026-07-11/types/platform_config.json",
+  "title": "Paze Platform Config",
+  "description": "Configuration for a platform capable of hosting the Paze browser handler.",
+  "type": "object",
+  "required": ["environment", "module_url"],
+  "properties": {
+    "environment": {
+      "type": "string",
+      "enum": ["sandbox", "production"]
+    },
+    "module_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Allowlisted, versioned ES module implementing the Paze browser-handler contract."
+    }
+  },
+  "additionalProperties": false
+}

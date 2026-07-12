@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/jknarr/paze-ucp-payment-handler/v2026-07-11/schemas/2026-07-11/handler.schema.json",
+  "title": "Paze UCP Payment Handler",
+  "description": "Handler schema for dev.jknarr.paze_checkout.",
+  "name": "dev.jknarr.paze_checkout",
+  "version": "2026-07-11",
+  "$defs": {
+    "paze_credential": {
+      "$ref": "types/paze_credential.json"
+    },
+    "paze_instrument": {
+      "$ref": "types/paze_instrument.json"
+    },
+    "dev.jknarr.paze_checkout": {
+      "payment_instrument": {
+        "$ref": "types/paze_instrument.json"
+      },
+      "platform_schema": {
+        "title": "Paze Handler (Platform)",
+        "allOf": [
+          {
+            "$ref": "https://ucp.dev/2026-04-08/schemas/payment_handler.json#/$defs/platform_schema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "config": {
+                "$ref": "types/platform_config.json"
+              }
+            }
+          }
+        ]
+      },
+      "business_schema": {
+        "title": "Paze Handler (Business)",
+        "allOf": [
+          {
+            "$ref": "https://ucp.dev/2026-04-08/schemas/payment_handler.json#/$defs/business_schema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "config": {
+                "$ref": "types/business_config.json"
+              }
+            }
+          }
+        ]
+      },
+      "response_schema": {
+        "title": "Paze Handler (Response)",
+        "allOf": [
+          {
+            "$ref": "https://ucp.dev/2026-04-08/schemas/payment_handler.json#/$defs/response_schema"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "config": {
+                "$ref": "types/response_config.json"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

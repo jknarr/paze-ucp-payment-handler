@@ -1,0 +1,45 @@
+{
+  "name": "@jknarr/paze-ucp-payment-handler",
+  "version": "0.1.0",
+  "description": "Experimental Paze browser payment handler and specification for UCP",
+  "type": "module",
+  "files": [
+    "dist",
+    "schemas",
+    "spec"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/contract.d.ts",
+      "import": "./dist/contract.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "import": "./dist/browser.js"
+    },
+    "./sdk": {
+      "types": "./dist/sdk.d.ts",
+      "import": "./dist/sdk.js"
+    },
+    "./ucp-types": {
+      "types": "./dist/ucp-types.d.ts",
+      "import": "./dist/ucp-types.js"
+    }
+  },
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "npm run clean && tsc -p tsconfig.json && vite build",
+    "dev": "vite --host 127.0.0.1 --port 5175",
+    "preview": "vite preview --host 127.0.0.1 --port 5175",
+    "prepack": "npm run build",
+    "test": "tsx tests/browser-contract.test.ts && tsx tests/schema-conformance.test.ts",
+    "validate": "npm run build && npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsx": "^4.23.0",
+    "typescript": "~5.8.3",
+    "vite": "^6.4.1"
+  },
+  "license": "MIT"
+}

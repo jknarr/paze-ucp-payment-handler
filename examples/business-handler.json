@@ -1,0 +1,27 @@
+{
+  "dev.jknarr.paze_checkout": [
+    {
+      "id": "jimporium_paze_sdk",
+      "version": "2026-07-11",
+      "spec": "https://raw.githubusercontent.com/jknarr/paze-ucp-payment-handler/v2026-07-11/spec/2026-07-11/paze-ucp-payment-handler.md",
+      "schema": "https://raw.githubusercontent.com/jknarr/paze-ucp-payment-handler/v2026-07-11/schemas/2026-07-11/handler.schema.json",
+      "available_instruments": [
+        {
+          "type": "paze"
+        }
+      ],
+      "config": {
+        "environment": "sandbox",
+        "client_id": "PAZE_PUBLIC_SDK_CLIENT_ID",
+        "profile_id": "PAZE_PROFILE_ID",
+        "module_url": "https://payments.paze.example/2026-07-11/paze-handler.js",
+        "supported_currencies": [
+          "USD"
+        ],
+        "supported_intents": [
+          "REVIEW_AND_PAY"
+        ]
+      }
+    }
+  ]
+}
